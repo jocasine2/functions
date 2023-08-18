@@ -257,8 +257,19 @@ function se_existe(){
     fi
 }
 
+# Função para verificar e criar o arquivo .env se necessário
+create_env_file() {
+  if [ ! -f .env ]; then
+    cp .env.example .env
+    echo "Arquivo .env criado a partir de .env.example"
+  fi
+}
+
 function Welcome(){
     echo funções carregadas!
 }
+
+# Verificar e criar o arquivo .env se necessário
+create_env_file
 
 Welcome
