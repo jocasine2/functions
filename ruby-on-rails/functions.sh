@@ -261,13 +261,23 @@ function se_existe(){
 create_env_file() {
   if [ ! -f .env ]; then
     cp .env.example .env
-    echo "Arquivo .env criado a partir de .env.example"
+    echo -e "Arquivo .env não encontrado, ${green}criado novo .env a partir de .env.example${reset}"
   fi
 }
 
 function Welcome(){
     echo funções carregadas!
 }
+
+function getColors(){
+    export red='\033[0;31m'
+    export green='\033[0;32m'
+    export blue='\033[0;34m'
+    export reset='\033[0m'
+}
+
+# Adiciona cores para as mensagens da biblioteca
+getColors
 
 # Verificar e criar o arquivo .env se necessário
 create_env_file
