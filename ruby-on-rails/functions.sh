@@ -1,22 +1,9 @@
 #!/bin/bash
 
-function derrubar_containers() {
-    # Obtém a lista de IDs de todos os containers em execução
-    container_ids=$(docker ps -q)
-
-    # Verifica se há containers em execução
-    if [ -z "$container_ids" ]; then
-        echo "Não há containers em execução."
-        return
-    fi
-
-    # Itera sobre cada ID de container e os derruba
-    for container_id in $container_ids; do
-        echo "Derrubando container: $container_id"
-        docker stop "$container_id"
-    done
-
-    echo "Todos os containers em execução foram derrubados."
+#comando para matar todos os containers
+function dka(){
+    docker kill $(docker ps -q)
+    echo "${green}Todos os containers em execução foram derrubados.{reset}"
 }
 
 #reinicia a aplicação e mostra os logs do app
