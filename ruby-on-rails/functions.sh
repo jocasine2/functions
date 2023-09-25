@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Função para verificar e criar o arquivo .env se necessário
+create_env_file() {
+  if [ ! -f .env ]; then
+    cp .env.example .env
+    echo -e "Arquivo .env não encontrado, ${green}criado novo .env a partir de .env.example${reset}"
+  fi
+}
+
+# Verificar e criar o arquivo .env se necessário
+create_env_file
+
 #comando para matar todos os containers
 function dka(){
     docker kill $(docker ps -q)
@@ -244,14 +255,6 @@ function se_existe(){
     fi
 }
 
-# Função para verificar e criar o arquivo .env se necessário
-create_env_file() {
-  if [ ! -f .env ]; then
-    cp .env.example .env
-    echo -e "Arquivo .env não encontrado, ${green}criado novo .env a partir de .env.example${reset}"
-  fi
-}
-
 function Welcome(){
     echo funções carregadas!
 }
@@ -266,7 +269,6 @@ function getColors(){
 # Adiciona cores para as mensagens da biblioteca
 getColors
 
-# Verificar e criar o arquivo .env se necessário
-create_env_file
+
 
 Welcome
