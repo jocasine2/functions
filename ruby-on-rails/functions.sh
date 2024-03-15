@@ -1,7 +1,11 @@
 #!/bin/bash
 
-diagram_scaffold(){
-    app bundle exec rails runner 'Diagram.scaffold_generator'
+function diagram(){
+    if [ $1 = "scaffold" ] && [ $2 = "destroy" ]; then
+        app bundle exec rails runner 'Diagram.scaffold_destroyer'
+    elif [ $1 = "scaffold" ]; then
+        app bundle exec rails runner 'Diagram.scaffold_generator'
+    fi
 }
 
 # Função para verificar e criar o arquivo .env se necessário
