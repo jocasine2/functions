@@ -1,5 +1,9 @@
 #!/bin/bash
 
+diagram_scaffold(){
+    app bundle exec rails runner 'Diagram.scaffold_generator'
+}
+
 # Função para verificar e criar o arquivo .env se necessário
 create_env_file() {
   if [ ! -f .env ]; then
