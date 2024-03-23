@@ -1,12 +1,23 @@
 #!/bin/bash
 
-function diagram(){
-    if [ $1 = "scaffold" ] && [ $2 = "destroy" ]; then
+function diagram() {
+    # Verifica se o número de argumentos é insuficiente
+    if [ $# -lt 1 ]; then
+        echo "Uso: diagram <comando>"
+        return 1
+    fi
+
+    # Verifica se o comando é "scaffold destroy"
+    if [ "$1" = "scaffold" ] && [ "$2" = "destroy" ]; then
         app bundle exec rails runner 'Diagram.scaffold_destroyer'
-    elif [ $1 = "scaffold" ]; then
+    elif [ "$1" = "scaffold" ]; then
+        app bundle exec rails runner 'Diagram.scaffold_generator'
+    elif [ "$1" = "reload" ]; then
+        app bundle exec rails runner 'Diagram.scaffold_destroyer'
         app bundle exec rails runner 'Diagram.scaffold_generator'
     fi
 }
+
 
 # Função para verificar e criar o arquivo .env se necessário
 create_env_file() {
