@@ -224,7 +224,6 @@ function permissions_update(){
     sudo chown -R $USER:$USER docker-compose.yml
     sudo chown -R $USER:$USER start.sh
     sudo chown -R $USER:$USER docker-compose/Gemfile
-    sudo chown -R $USER:$USER docker-compose/functions.sh
     sudo chown -R $USER:$USER config/master.key
     sudo chown -R $USER:$USER db/migrate
     sudo chown -R $USER:$USER docs/diagramas
