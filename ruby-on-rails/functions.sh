@@ -290,19 +290,19 @@ function commit(){
 
     if [ "$1" = "feature" ]; then
         git add . && git commit -m "✨ $2" && git push origin $BRANCH
-        echo  -e "Commit ${green}'$1'${reset} realizado na branch ${blue} $BRANCH ${reset}"
+        echo  -e "Commit ${green}'$1': $2${reset} realizado na branch ${blue} $BRANCH ${reset}"
     elif [ "$1" = "bugfix" ]; then
         git add . && git commit -m "🐛 $2" && git push origin $BRANCH
-        echo  -e "Commit ${green}'$1'${reset} realizado na branch ${blue} $BRANCH ${reset}"
+        echo  -e "Commit ${green}'$1': $2${reset} realizado na branch ${blue} $BRANCH ${reset}"
     elif [ "$1" = "hotfix" ]; then
         git add . && git commit -m "💥 $2" && git push origin $BRANCH
-        echo  -e "Commit ${green}'$1'${reset} realizado na branch ${blue} $BRANCH ${reset}"
+        echo  -e "Commit ${green}'$1': $2${reset} realizado na branch ${blue} $BRANCH ${reset}"
     elif [ "$1" = "doc" ]; then
         git add . && git commit -m "📚 $2" && git push origin $BRANCH
-        echo  -e "Commit ${green}'$1'${reset} realizado na branch ${blue} $BRANCH ${reset}"
+        echo  -e "Commit ${green}'$1': $2${reset} realizado na branch ${blue} $BRANCH ${reset}"
     elif [ "$1" = "doc" ]; then
         git add . && git commit -m "⏪ $2" && git push origin $BRANCH
-        echo  -e "Commit ${green}'$1'${reset} realizado na branch ${blue} $BRANCH ${reset}"
+        echo  -e "Commit ${green}'$1': $2${reset} realizado na branch ${blue} $BRANCH ${reset}"
     elif [ "$1" = "help" ]; then
         echo -e "${blue}commit help${reset} - Exibe esta lista de comandos"
         echo -e "${blue}commit feature${reset} ${green}\"mensagem aqui\"${reset} -> Commit de nova funcionalidade"
