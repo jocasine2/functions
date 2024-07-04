@@ -285,9 +285,11 @@ function getColors(){
     export reset='\033[0m'
 }
 
+function commit(){
+    BRANCH=$(git rev-parse --abbrev-ref HEAD) && git add . && git commit -m "🚧 $2" && git push origin $BRANCH
+}
+
 # Adiciona cores para as mensagens da biblioteca
 getColors
-
-
 
 Welcome
