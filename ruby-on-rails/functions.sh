@@ -286,8 +286,36 @@ function getColors(){
 }
 
 function commit(){
-    BRANCH=$(git rev-parse --abbrev-ref HEAD) && git add . && git commit -m "🚧 $1" && git push origin $BRANCH
-    echo  -e "Commit ${green}'$1'${reset} realizado na branch ${blue} $BRANCH ${reset}"
+    BRANCH=$(git rev-parse --abbrev-ref HEAD) 
+
+    if [ "$1" = "feature" ]; then
+        git add . && git commit -m "✨ $2" && git push origin $BRANCH
+        echo  -e "Commit ${green}'$1'${reset} realizado na branch ${blue} $BRANCH ${reset}"
+    elif [ "$1" = "bugfix" ]; then
+        git add . && git commit -m "🐛 $2" && git push origin $BRANCH
+        echo  -e "Commit ${green}'$1'${reset} realizado na branch ${blue} $BRANCH ${reset}"
+    elif [ "$1" = "hotfix" ]; then
+        git add . && git commit -m "💥 $2" && git push origin $BRANCH
+        echo  -e "Commit ${green}'$1'${reset} realizado na branch ${blue} $BRANCH ${reset}"
+    elif [ "$1" = "doc" ]; then
+        git add . && git commit -m "📚 $2" && git push origin $BRANCH
+        echo  -e "Commit ${green}'$1'${reset} realizado na branch ${blue} $BRANCH ${reset}"
+    elif [ "$1" = "doc" ]; then
+        git add . && git commit -m "⏪ $2" && git push origin $BRANCH
+        echo  -e "Commit ${green}'$1'${reset} realizado na branch ${blue} $BRANCH ${reset}"
+    elif [ "$1" = "help" ]; then
+        echo -e "${blue}commit help${reset} - Exibe esta lista de comandos"
+        echo -e "${blue}commit feature${reset} ${green}\"mensagem aqui\"${reset} -> Commit de nova funcionalidade"
+        echo -e "${blue}commit bugfix${reset} ${green}\"mensagem aqui\"${reset} -> Commit de correção de bug"
+        echo -e "${blue}commit hotfix${reset} ${green}\"mensagem aqui\"${reset} -> Commit de correção urgente"
+        echo -e "${blue}commit doc${reset} ${green}\"mensagem aqui\"${reset} -> Commit de documentação"
+        echo -e "${blue}commit rollback${reset} ${green}\"mensagem aqui\"${reset} -> Commit de rollback"
+    else
+        git add . && git commit -m "🚧 $1" && git push origin $BRANCH
+        echo  -e "Commit ${green}'$1'${reset} realizado na branch ${blue} $BRANCH ${reset}"
+    fi
+
+    
 }
 
 # Adiciona cores para as mensagens da biblioteca
