@@ -286,8 +286,10 @@ function getColors(){
 }
 
 function commit(){
-    BRANCH=$(git rev-parse --abbrev-ref HEAD) && git add . && git commit -m "🚧 $2" && git push origin $BRANCH
+    BRANCH=$(git rev-parse --abbrev-ref HEAD)
     echo 'Commit $2 realizado na branch $BRANCH'
+    # BRANCH=$(git rev-parse --abbrev-ref HEAD) && git add . && git commit -m "🚧 $2" && git push origin $BRANCH
+    
 }
 
 # Adiciona cores para as mensagens da biblioteca
