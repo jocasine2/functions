@@ -229,6 +229,7 @@ function permissions_update(){
     sudo chown -R $USER:$USER docs/diagramas
     sudo chown -R $USER:$USER db/seeds.rb
     sudo chown -R $USER:$USER todo.txt
+    sudo chown -R $USER:$USER config/routes.rb
     
     echo permissões atualizadas!
 }
