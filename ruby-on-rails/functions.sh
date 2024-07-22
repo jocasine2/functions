@@ -227,9 +227,13 @@ function permissions_update(){
     sudo chown -R $USER:$USER config/master.key
     sudo chown -R $USER:$USER db/migrate
     sudo chown -R $USER:$USER docs/diagramas
+<<<<<<< HEAD
     sudo chown -R $USER:$USER db/seeds.rb
     sudo chown -R $USER:$USER todo.txt
     
+=======
+    sudo chown -R $USER:$USER todo.txt
+>>>>>>> teste
     echo permissões atualizadas!
 }
 
