@@ -291,24 +291,20 @@ function getColors(){
     export reset='\033[0m'
 }
 
-function commit(){
+function commit() {
     BRANCH=$(git rev-parse --abbrev-ref HEAD) 
+    COMMIT_MESSAGE=""
 
     if [ "$1" = "feature" ]; then
-        git add . && git commit -m "✨ $2" && git push origin $BRANCH
-        echo  -e "Commit ${green}'$1': $2${reset} realizado na branch ${blue} $BRANCH ${reset}"
+        COMMIT_MESSAGE="✨ $2"
     elif [ "$1" = "bugfix" ]; then
-        git add . && git commit -m "🐛 $2" && git push origin $BRANCH
-        echo  -e "Commit ${green}'$1': $2${reset} realizado na branch ${blue} $BRANCH ${reset}"
+        COMMIT_MESSAGE="🐛 $2"
     elif [ "$1" = "hotfix" ]; then
-        git add . && git commit -m "💥 $2" && git push origin $BRANCH
-        echo  -e "Commit ${green}'$1': $2${reset} realizado na branch ${blue} $BRANCH ${reset}"
+        COMMIT_MESSAGE="💥 $2"
     elif [ "$1" = "doc" ]; then
-        git add . && git commit -m "📚 $2" && git push origin $BRANCH
-        echo  -e "Commit ${green}'$1': $2${reset} realizado na branch ${blue} $BRANCH ${reset}"
-    elif [ "$1" = "doc" ]; then
-        git add . && git commit -m "⏪ $2" && git push origin $BRANCH
-        echo  -e "Commit ${green}'$1': $2${reset} realizado na branch ${blue} $BRANCH ${reset}"
+        COMMIT_MESSAGE="📚 $2"
+    elif [ "$1" = "rollback" ]; then
+        COMMIT_MESSAGE="⏪ $2"
     elif [ "$1" = "help" ]; then
         echo -e "${blue}commit help${reset} - Exibe esta lista de comandos"
         echo -e "${blue}commit feature${reset} ${green}\"mensagem aqui\"${reset} -> Commit de nova funcionalidade"
@@ -316,12 +312,16 @@ function commit(){
         echo -e "${blue}commit hotfix${reset} ${green}\"mensagem aqui\"${reset} -> Commit de correção urgente"
         echo -e "${blue}commit doc${reset} ${green}\"mensagem aqui\"${reset} -> Commit de documentação"
         echo -e "${blue}commit rollback${reset} ${green}\"mensagem aqui\"${reset} -> Commit de rollback"
+        return
     else
-        git add . && git commit -m "🚧 $1" && git push origin $BRANCH
-        echo  -e "Commit ${green}'$1'${reset} realizado na branch ${blue} $BRANCH ${reset}"
+        COMMIT_MESSAGE="🚧 $1"
     fi
 
-    
+    # Adiciona e faz o commit
+    git add . && git commit -m "$COMMIT_MESSAGE" && git push origin "$BRANCH"
+
+    # Imprime a mensagem de commit
+    echo -e "Commit ${green}'$COMMIT_MESSAGE'${reset} realizado na branch ${blue}$BRANCH${reset}"
 }
 
 # Adiciona cores para as mensagens da biblioteca
