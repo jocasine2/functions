@@ -326,5 +326,4 @@ function commit() {
 
 # Adiciona cores para as mensagens da biblioteca
 getColors
-
 Welcome
