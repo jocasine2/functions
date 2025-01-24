@@ -18,7 +18,6 @@ function diagram() {
     fi
 }
 
-
 # Função para verificar e criar o arquivo .env se necessário
 create_env_file() {
   if [ ! -f .env ]; then
@@ -322,6 +321,20 @@ function commit() {
 
     # Imprime a mensagem de commit
     echo -e "Commit ${green}'$COMMIT_MESSAGE'${reset} realizado na branch ${blue}$BRANCH${reset}"
+}
+
+function cypress(){
+    if [ "$1" = "run" ]; then
+        npx cypress run --project test/cypress/
+    elif [ "$1" = "open" ]; then
+        npx cypress open --project test/cypress/
+    elif [ "$1" = "install" ]; then
+        npx cypress install --project test/cypress/
+    elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+        echo "Uso: cypress {run|open|install}"
+    else
+        echo "Comando inválido. Use 'cypress --help' ou 'cypress -h' para ajuda."
+    fi
 }
 
 # Adiciona cores para as mensagens da biblioteca
