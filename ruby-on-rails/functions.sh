@@ -324,18 +324,35 @@ function commit() {
 }
 
 function cypress(){
-    if [ "$1" = "run" ]; then
-        npx cypress run --project test/cypress/
-    elif [ "$1" = "open" ]; then
-        npx cypress open --project test/cypress/
-    elif [ "$1" = "install" ]; then
-        npx cypress install --project test/cypress/
-    elif [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-        echo "Uso: cypress {run|open|install}"
-    else
-        echo "Comando inválido. Use 'cypress --help' ou 'cypress -h' para ajuda."
+    CYPRESS_DIR="test/cypress"
+    
+    # Verifica se o diretório do Cypress existe
+    if [ ! -d "$CYPRESS_DIR" ]; then
+        echo "Erro: O diretório $CYPRESS_DIR não foi encontrado."
+        return 1
     fi
+
+    case "$1" in
+        run)
+            npx cypress run --project $CYPRESS_DIR/
+            ;;
+        open)
+            npx cypress open --project $CYPRESS_DIR/
+            ;;
+        install)
+            echo "Instalando dependências com node_install.sh..."
+            (cd $CYPRESS_DIR && sudo ./node_install.sh)
+            ;;
+        --help|-h)
+            echo "Uso: cypress {run|open|install}"
+            ;;
+        *)
+            echo "Comando inválido. Use 'cypress --help' ou 'cypress -h' para ajuda."
+            return 1
+            ;;
+    esac
 }
+
 
 # Adiciona cores para as mensagens da biblioteca
 getColors
