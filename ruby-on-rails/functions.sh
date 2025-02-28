@@ -324,7 +324,7 @@ function commit() {
 }
 
 function cypress(){
-    CYPRESS_DIR="test/cypress"
+    CYPRESS_DIR="test/"
     
     # Verifica se o diretório do Cypress existe
     if [ ! -d "$CYPRESS_DIR" ]; then
