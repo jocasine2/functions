@@ -304,6 +304,8 @@ function commit() {
         COMMIT_MESSAGE="📚 $2"
     elif [ "$1" = "rollback" ]; then
         COMMIT_MESSAGE="⏪ $2"
+    elif [ "$1" = "e2e" ]; then
+        COMMIT_MESSAGE="🔍 $2"
     elif [ "$1" = "help" ]; then
         echo -e "${blue}commit help${reset} - Exibe esta lista de comandos"
         echo -e "${blue}commit feature${reset} ${green}\"mensagem aqui\"${reset} -> Commit de nova funcionalidade"
@@ -311,6 +313,7 @@ function commit() {
         echo -e "${blue}commit hotfix${reset} ${green}\"mensagem aqui\"${reset} -> Commit de correção urgente"
         echo -e "${blue}commit doc${reset} ${green}\"mensagem aqui\"${reset} -> Commit de documentação"
         echo -e "${blue}commit rollback${reset} ${green}\"mensagem aqui\"${reset} -> Commit de rollback"
+        echo -e "${blue}commit e2e${reset} ${green}\"mensagem aqui\"${reset} -> Commit de testes E2E"
         return
     else
         COMMIT_MESSAGE="🚧 $1"
