@@ -106,6 +106,10 @@ function app(){
         app_turbolink_remove
         atualiza_nome_app $2
         docker-compose up -d
+    elif [ $1 = "container" ]; then
+        container_name="$2"
+        shift 2
+        docker-compose exec "$container_name" "$@"
     elif [ $1 = "enter" ]; then
         enter $APP_NAME'_app'
     elif [ $1 = "scaffold" ]; then
@@ -120,7 +124,7 @@ function app(){
         app_config_devise_token_auth
         app rails db:migrate
     else
-        docker-compose run app $@
+        docker-compose exec app $@
     fi
 }
 
