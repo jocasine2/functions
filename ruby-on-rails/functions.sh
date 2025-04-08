@@ -219,24 +219,24 @@ atualiza_nome_app(){
 }
 
 function permissions_update(){
-    sudo chown -R $USER:$USER app
-    sudo chown -R $USER:$USER .env
-    sudo chown -R $USER:$USER .gitignore
-    sudo chown -R $USER:$USER Dockerfile
-    sudo chown -R $USER:$USER Gemfile
-    sudo chown -R $USER:$USER Gemfile.lock
-    sudo chown -R $USER:$USER README.md
-    sudo chown -R $USER:$USER docker-compose.yml
-    sudo chown -R $USER:$USER start.sh
-    sudo chown -R $USER:$USER docker-compose/Gemfile
-    sudo chown -R $USER:$USER config/master.key
-    sudo chown -R $USER:$USER db/migrate
-    sudo chown -R $USER:$USER docs/diagramas
-    sudo chown -R $USER:$USER db/seeds.rb
-    sudo chown -R $USER:$USER todo.txt
-    sudo chown -R $USER:$USER config/routes.rb
-    
-    echo permissões atualizadas!
+    se_existe app "sudo chown -R $USER:$USER app"
+    se_existe .env "sudo chown -R $USER:$USER .env"
+    se_existe .gitignore "sudo chown -R $USER:$USER .gitignore"
+    se_existe Dockerfile "sudo chown -R $USER:$USER Dockerfile"
+    se_existe Gemfile "sudo chown -R $USER:$USER Gemfile"
+    se_existe Gemfile.lock "sudo chown -R $USER:$USER Gemfile.lock"
+    se_existe README.md "sudo chown -R $USER:$USER README.md"
+    se_existe docker-compose.yml "sudo chown -R $USER:$USER docker-compose.yml"
+    se_existe start.sh "sudo chown -R $USER:$USER start.sh"
+    se_existe docker-compose/Gemfile "sudo chown -R $USER:$USER docker-compose/Gemfile"
+    se_existe config/master.key "sudo chown -R $USER:$USER config/master.key"
+    se_existe db/migrate "sudo chown -R $USER:$USER db/migrate"
+    se_existe docs/diagramas "sudo chown -R $USER:$USER docs/diagramas"
+    se_existe db/seeds.rb "sudo chown -R $USER:$USER db/seeds.rb"
+    se_existe todo.txt "sudo chown -R $USER:$USER todo.txt"
+    se_existe config/routes.rb "sudo chown -R $USER:$USER config/routes.rb"
+
+    echo "✅ permissões atualizadas!"
 }
 
 function prune(){
