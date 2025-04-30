@@ -32,7 +32,7 @@ create_env_file
 #comando para matar todos os containers
 function dka(){
     docker kill $(docker ps -q)
-    echo -e "${green}Todos os containers em execução foram derrubados.{reset}"
+    echo -e "${green}Todos os containers em execução foram derrubados.${reset}"
 }
 
 #reinicia a aplicação e mostra os logs do app
