@@ -377,6 +377,7 @@ function list() {
     fi
 }
 
+
 # Adiciona cores para as mensagens da biblioteca
 getColors
 Welcome
