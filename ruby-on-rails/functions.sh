@@ -366,8 +366,12 @@ function cypress(){
     esac
 }
 
-function list(){
-    docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}"
+function list() {
+    if [ -n "$1" ]; then
+        docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}" | grep "$1"
+    else
+        docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"
+    fi
 }
 
 # Adiciona cores para as mensagens da biblioteca
