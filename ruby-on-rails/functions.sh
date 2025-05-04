@@ -366,6 +366,9 @@ function cypress(){
     esac
 }
 
+function list(){
+    docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}"
+}
 
 # Adiciona cores para as mensagens da biblioteca
 getColors
