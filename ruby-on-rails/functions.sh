@@ -367,13 +367,13 @@ function cypress(){
 }
 
 function list() {
-    local header=$(docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}" | head -n 1)
+    local header=$(docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}\t{{.Status}}" | head -n 1)
     if [ -n "$1" ]; then
         echo "$header"
-        docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}" | tail -n +2 | grep "$1"
+        docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}\t{{.Status}}" | tail -n +2 | grep "$1"
     else
         echo "$header"
-        docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}" | tail -n +2
+        docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}\t{{.Status}}" | tail -n +2
     fi
 }
 
