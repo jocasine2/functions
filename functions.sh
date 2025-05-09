@@ -53,7 +53,7 @@ install_docker_compose() {
         sudo systemctl enable docker
         rm get-docker.sh
     else
-        echo "Docker já está instalado."
+         echo -e "${green}Docker já está instalado. ${reset}"
     fi
 
     if ! command -v docker-compose &> /dev/null; then
@@ -61,7 +61,7 @@ install_docker_compose() {
         sudo curl -L "https://github.com/docker/compose/releases/download/1.29.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
         sudo chmod +x /usr/local/bin/docker-compose
     else
-        echo "Docker Compose já está instalado."
+         echo -e "${green}Docker Compose já está instalado. ${reset}"
     fi
 }
 
@@ -70,7 +70,7 @@ install_docker_compose
 # Carrega variáveis do .env
 getEnv(){
     if [ ! -f .env ]; then
-        echo -e "${yellow}Aviso: arquivo .env não encontrado, variáveis não carregadas.${reset}"
+        echo -e "${yellow}Aviso: arquivo .env não encontrado, variáveis não carregadas. ${reset}"
         return
     fi
 
