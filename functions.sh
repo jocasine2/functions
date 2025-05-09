@@ -87,10 +87,10 @@ getEnv
 
 user_docker(){
     if id -nG "$USER" | grep -qw "docker"; then
-        echo "$USER já pertence ao grupo docker."
+        echo -e "${blue}$USER já pertence ao grupo docker. ${reset}"
     else
         sudo usermod -aG docker "$USER"
-        echo "$USER adicionado ao grupo docker."
+        echo -e "${blue}$USER adicionado ao grupo docker. ${reset}"
     fi
 }
 
