@@ -110,19 +110,6 @@ atualiza_nome_app(){
     sudo sed -i "1cAPP_NAME=$1" .env
 }
 
-permissions_update(){
-    arquivos=(
-        app .env .gitignore Dockerfile Gemfile Gemfile.lock README.md
-        docker-compose.yml start.sh docker-compose/Gemfile
-        config/master.key db/migrate docs/diagramas db/seeds.rb
-        todo.txt config/routes.rb
-    )
-    for file in "${arquivos[@]}"; do
-        se_existe "$file" "sudo chown -R $USER:$USER $file"
-    done
-    echo -e "${green}✅ Permissões atualizadas!${reset}"
-}
-
 prune(){
     docker system prune -a -f
 }
@@ -141,32 +128,41 @@ se_existe(){
     fi
 }
 
-commit() {
-    BRANCH=$(git rev-parse --abbrev-ref HEAD) 
-    COMMIT_MESSAGE=""
+function commit() {
+    local BRANCH=$(git rev-parse --abbrev-ref HEAD)
+    local TYPES=("Bugfix" "Feature" "Hotfix" "Doc" "Rollback" "E2E" "Outro")
+    local EMOJIS=("🐛" "✨" "💥" "📚" "⏪" "🔍" "🚧")
 
-    case "$1" in
-        feature) COMMIT_MESSAGE="✨ $2" ;;
-        bugfix) COMMIT_MESSAGE="🐛 $2" ;;
-        hotfix) COMMIT_MESSAGE="💥 $2" ;;
-        doc) COMMIT_MESSAGE="📚 $2" ;;
-        rollback) COMMIT_MESSAGE="⏪ $2" ;;
-        e2e) COMMIT_MESSAGE="🔍 $2" ;;
-        help)
-            echo -e "${blue}commit help${reset} - Exibe esta lista de comandos"
-            echo -e "${blue}commit feature${reset} ${green}\"mensagem\"${reset} -> Nova funcionalidade"
-            echo -e "${blue}commit bugfix${reset} ${green}\"mensagem\"${reset} -> Correção de bug"
-            echo -e "${blue}commit hotfix${reset} ${green}\"mensagem\"${reset} -> Correção urgente"
-            echo -e "${blue}commit doc${reset} ${green}\"mensagem\"${reset} -> Documentação"
-            echo -e "${blue}commit rollback${reset} ${green}\"mensagem\"${reset} -> Rollback"
-            echo -e "${blue}commit e2e${reset} ${green}\"mensagem\"${reset} -> Testes end-to-end"
-            return
-            ;;
-        *) COMMIT_MESSAGE="🚧 $1" ;;
-    esac
+    echo "Escolha o tipo de commit:"
+    for i in "${!TYPES[@]}"; do
+        echo "$((i + 1)) - ${EMOJIS[$i]} ${TYPES[$i]}"
+    done
 
-    git add . && git commit -m "$COMMIT_MESSAGE" && git push origin "$BRANCH"
-    echo -e "Commit ${green}'$COMMIT_MESSAGE'${reset} realizado na branch ${blue}$BRANCH${reset}"
+    read -p "Digite o número correspondente: " TYPE_INDEX
+    TYPE_INDEX=$((TYPE_INDEX - 1))
+
+    if [[ $TYPE_INDEX -lt 0 || $TYPE_INDEX -ge ${#TYPES[@]} ]]; then
+        echo "Tipo inválido."
+        return 1
+    fi
+
+    read -p "Digite a mensagem do commit: " MESSAGE
+    local COMMIT_MESSAGE="${EMOJIS[$TYPE_INDEX]} $MESSAGE"
+
+    # Adiciona arquivos e tenta o commit
+    git add .
+    if git diff --cached --quiet; then
+        echo "Nenhuma alteração para commit."
+        return 1
+    fi
+
+    if git commit -m "$COMMIT_MESSAGE"; then
+        git push origin "$BRANCH"
+        echo -e "✅ Commit realizado: '$COMMIT_MESSAGE' na branch '$BRANCH'"
+    else
+        echo "❌ Ocorreu um erro ao tentar realizar o commit."
+        return 1
+    fi
 }
 
 cypress(){
@@ -196,6 +192,17 @@ cypress(){
             return 1
             ;;
     esac
+}
+
+function list() {
+    local header=$(docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}\t{{.Status}}" | head -n 1)
+    if [ -n "$1" ]; then
+        echo "$header"
+        docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}\t{{.Status}}" | tail -n +2 | grep "$1"
+    else
+        echo "$header"
+        docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}\t{{.Status}}" | tail -n +2
+    fi
 }
 
 Welcome
