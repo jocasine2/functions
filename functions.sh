@@ -158,7 +158,7 @@ function commit() {
 
     if git commit -m "$COMMIT_MESSAGE"; then
         git push origin "$BRANCH"
-        echo -e "✅ Commit realizado: '$COMMIT_MESSAGE' na branch '$BRANCH'"
+        echo -e "✅ Commit realizado: '$COMMIT_MESSAGE' na branch ${blue}'$BRANCH'${reset}"
     else
         echo "❌ Ocorreu um erro ao tentar realizar o commit."
         return 1
