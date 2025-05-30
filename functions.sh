@@ -18,7 +18,7 @@ Welcome(){
 
 # Função para verificar e criar o arquivo .env se necessário
 create_env_file() {
-  if [ ! -f .env ]; then
+  if [ ! -f .env ]; then    
     if [ -f .env.example ]; then
       cp .env.example .env
       echo -e "${green}Arquivo .env criado a partir de .env.example.${reset}"
@@ -65,7 +65,7 @@ install_docker_compose() {
     fi
 }
 
-install_docker_compose
+# install_docker_compose
 
 # Carrega variáveis do .env
 getEnv(){
