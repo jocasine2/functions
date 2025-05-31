@@ -162,7 +162,7 @@ function app(){
     elif [ $1 = "container" ]; then
         container_name="$2"
         shift 2
-        docker-compose exec "$container_name" "$@"
+        docker-compose exec -T "$container_name" "$@"
     elif [ $1 = "enter" ]; then
         enter $APP_NAME'_app'
     elif [ $1 = "scaffold" ]; then
