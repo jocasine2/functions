@@ -98,6 +98,18 @@ enter(){
     docker exec -it "$@" bash
 }
 
+function app(){
+    if [ $1 = "container" ]; then
+        container_name="$2"
+        shift 2
+        docker-compose exec "$container_name" "$@"
+    elif [ $1 = "enter" ]; then
+        enter $APP_NAME'_app'
+    else
+        docker-compose exec app $@
+    fi
+}
+
 db(){
     if [ "$1" = "restore" ]; then
         echo "Iniciando restauração de ${APP_NAME}_development..."

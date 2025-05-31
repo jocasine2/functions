@@ -152,34 +152,3 @@ function destroy_project(){
 }
 
 
-function app(){
-    if [ $1 = "new" ]; then
-        echo criando $2
-        new_app
-        app_turbolink_remove
-        atualiza_nome_app $2
-        docker-compose up -d
-    elif [ $1 = "container" ]; then
-        container_name="$2"
-        shift 2
-        docker-compose exec -T "$container_name" "$@"
-    elif [ $1 = "enter" ]; then
-        enter $APP_NAME'_app'
-    elif [ $1 = "scaffold" ]; then
-        app_scaffold ${*:2}
-    elif [ $1 = "migrate" ]; then
-        app rails db:migrate
-    elif [ $1 = "remove" ]; then
-        remove_app
-    elif [ $1 = "user_autentication_api" ]; then
-        app_config_devise
-        app rails g devise_token_auth:install User auth
-        app_config_devise_token_auth
-        app rails db:migrate
-    else
-        docker-compose exec app $@
-    fi
-}
-
-
-
